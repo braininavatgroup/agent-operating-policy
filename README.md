@@ -56,9 +56,8 @@ python3 skills/clean-my-ai-harness/tests/test_harness_evidence.py
 
 The authoritative list is [.github/workflows/ci.yml](.github/workflows/ci.yml). For a policy proposal, explain the agent behavior it changes and give a concrete case where that behavior helps. Keep company identifiers, credentials, and private transcripts out of examples and issue reports.
 
-Pull requests in this repository merge through Mergify after the required `ci` check passes.
-Maintainers queue reviewed pull requests with `@mergifyio queue`; the queue updates the branch
-against `main` and squash-merges it after checks pass.
+Pull requests in this repository squash-merge after the required `ci` check passes on a branch
+that is up to date with `main`.
 
 ## What was left out
 
