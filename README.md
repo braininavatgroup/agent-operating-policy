@@ -70,3 +70,23 @@ Copyright 2026 Bradley Berkman. MIT.
 <!-- Mac/personal environment proof, BIV-272 -->
 
 <!-- Conductor/personal merge-leg proof under the owner-scoped PAT, BIV-272 -->
+
+## Public-tree denylist action
+
+`.github/actions/public-tree-check` checks the complete committed Git tree,
+including filenames and symlink targets. It does not execute repository code,
+follow symlinks, or inspect history. CI fails closed if its policy is missing,
+invalid, or the tree cannot be read. Findings log only Git object IDs, since
+filenames and matching lines can contain the data being removed.
+
+Consumers pin this action to a full commit SHA and supply the repository variable
+`PUBLIC_TREE_DENYLIST` as its `denylist` input. The variable is a nonempty JSON
+array of `{ "words": <word count>, "sha256": <digest> }` entries. Fingerprints use
+NFKC, case folding, Unicode letter/number word sequences, and a single space
+between words. This catches case, whitespace and punctuation variants. The
+private policy owner compiles and configures these values; real denied terms do
+not belong in this public repository, its fixtures, its logs, or its PRs.
+Fingerprints are matching aids, not anonymization or secrets. This is not a
+general personal-data detector, and encoded/compressed assets still need review.
+
+Check the scanner with `python3 -m unittest tools/tests/test_public_tree_check.py`.
