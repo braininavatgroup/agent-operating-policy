@@ -13,11 +13,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Public-tree denylist
+        env:
+          PUBLIC_TREE_DENYLIST: ${{ vars.PUBLIC_TREE_DENYLIST }}
+        run: python3 tools/public_tree_check.py
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Committed renderings match policy sources
         run: python3 tools/adapters/check_generation.py
+      - name: Public-tree scanner tests
+        run: python3 -m unittest tools/tests/test_public_tree_check.py -v
       - name: Adapter tests
         run: python3 -m unittest tools/tests/test_policy_tools.py tools/tests/test_skill_render.py -v
       - name: Skill tests
