@@ -10,14 +10,14 @@ jobs:
     name: ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
       - name: Public-tree denylist
         env:
           PUBLIC_TREE_DENYLIST: ${{ vars.PUBLIC_TREE_DENYLIST }}
         run: python3 tools/public_tree_check.py
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
       - name: Committed renderings match policy sources
