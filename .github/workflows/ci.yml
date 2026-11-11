@@ -34,3 +34,9 @@ jobs:
         run: bash hooks/browser-launch-guard.test.sh
       - name: Example settings parse
         run: python3 -c "import json; json.load(open('hooks/settings.example.json'))"
+    timeout-minutes: 20
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}-check
+      cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+permissions:
+  contents: read
